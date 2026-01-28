@@ -15,7 +15,8 @@ projects:
         - "atlantis.yaml"
     apply_requirements:
       - approved # PR must be approved before apply
-      - policy_check # Policy checks must pass before apply
+      # Note: Policy checks are enabled server-side and run automatically
+      # They will block applies if policies fail (unless approved by policy owners)
       # Note: automerge will merge PR after apply succeeds, but apply still requires manual "atlantis apply" comment
 
   - name: terraform-aws-prod
