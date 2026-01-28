@@ -1,5 +1,8 @@
 # Local .terraform directories
-**/.terraform/*
+**/.terraform/
+.terraform/
+.terraform
+**/.terraform
 
 # .terraform.lock.hcl files (keep in repo for consistency)
 # Uncomment the line below if you want to ignore lock files
