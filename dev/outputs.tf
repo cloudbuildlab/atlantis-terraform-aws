@@ -7,8 +7,3 @@ output "bucket_arn" {
   description = "ARN of the created S3 bucket"
   value       = data.aws_s3_bucket.example.arn
 }
-
-output "bucket_tags" {
-  description = "Tags of the created S3 bucket"
-  value       = data.aws_s3_bucket.example.tags
-}
