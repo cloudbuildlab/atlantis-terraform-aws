@@ -1,12 +1,10 @@
 package main
 
-import future.keywords.if
-import future.keywords.in
-
 # Deny resources without required tags
 deny[msg] {
     resource := input.resource_changes[_]
     resource.type != "data"
+    resource.change.actions[_] == "create"
     not resource.change.after.tags
     msg := sprintf("Resource '%s' of type '%s' is missing required tags", [resource.address, resource.type])
 }
@@ -15,6 +13,7 @@ deny[msg] {
 deny[msg] {
     resource := input.resource_changes[_]
     resource.type != "data"
+    resource.change.actions[_] == "create"
     resource.change.after.tags
     not resource.change.after.tags.Name
     msg := sprintf("Resource '%s' of type '%s' is missing required 'Name' tag", [resource.address, resource.type])
@@ -24,6 +23,7 @@ deny[msg] {
 deny[msg] {
     resource := input.resource_changes[_]
     resource.type == "aws_s3_bucket"
+    resource.change.actions[_] == "create"
     not resource.change.after.server_side_encryption_configuration
     msg := sprintf("S3 bucket '%s' must have server-side encryption enabled", [resource.address])
 }
@@ -32,7 +32,9 @@ deny[msg] {
 deny[msg] {
     resource := input.resource_changes[_]
     resource.type == "aws_s3_bucket"
+    resource.change.actions[_] == "create"
     resource.change.after.versioning
+    count(resource.change.after.versioning) > 0
     not resource.change.after.versioning[0].enabled
     msg := sprintf("S3 bucket '%s' must have versioning enabled", [resource.address])
 }

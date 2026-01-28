@@ -1,8 +1,5 @@
 package main
 
-import future.keywords.if
-import future.keywords.in
-
 # Deny null_resource usage - common policy example
 deny[msg] {
     resource := input.resource_changes[_]
